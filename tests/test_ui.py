@@ -1,4 +1,4 @@
-from config import config
+from tests.config import config
 import helpers.cart as cart
 import helpers.user as user
 

@@ -1,5 +1,5 @@
 import os
-from config import config
+from tests.config import config
 from playwright.sync_api import TimeoutError
 
 
