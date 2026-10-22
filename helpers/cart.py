@@ -4,11 +4,14 @@ from playwright.sync_api import TimeoutError, expect
 
 def select_product_and_add_to_cart(page, product_name):
     """
-    Selects a product by its name and adds it to the cart.
+    Open the product page and add the selected product to the cart.
 
     Args:
         page: The Playwright page object.
-        product_name (str): The name of the product to select and add to the cart.
+        product_name: The exact product title to locate and add.
+
+    Raises:
+        TimeoutError: If the product or Add to Cart button never becomes visible.
     """
     page.goto(config.product_url)
 
@@ -27,6 +30,9 @@ def handle_cookie_consent(page):
 
     Args:
         page: The Playwright page object.
+
+    Notes:
+        If the banner is not present, the function exits quietly.
     """
     try:
         # Wait for the cookie consent banner to appear
@@ -44,6 +50,9 @@ def open_cart_and_verify_product(page, product_name):
     Args:
         page: The Playwright page object.
         product_name (str): The name of the product to verify in the cart.
+    
+    Raises:
+        AssertionError: If the product is missing or quantity is not 1.
     """
     page.goto(config.cart_url)
     page.locator("xpath=//form[contains(@id, 'ac-form--cart')]").wait_for(state="visible", timeout=10000)

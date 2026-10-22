@@ -14,13 +14,13 @@ logging.basicConfig(
 
 @pytest.fixture(scope="session")
 def pw():
+    """Create and provide the Playwright runtime for the whole test session."""
     with sync_playwright() as p:
         yield p
 
 
 @pytest.fixture(scope="session")
 def browser(pw):
-    # Launch the browser with ignore_default_args to avoid storing cookies
     browser = pw.chromium.launch(headless=False)
     yield browser
 
@@ -47,6 +47,7 @@ def page(context):
 
 @pytest.fixture
 def logged_in_user(page):
+    """Log in the user before the test and perform cleanup in teardown."""
     user.login_to_user_account(page)
     yield page
 
