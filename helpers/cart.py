@@ -22,6 +22,7 @@ def select_product_and_add_to_cart(page, product_name):
     page.locator(
         f"xpath=//div[contains(text(), '{product_name}')]/ancestor::a//button[normalize-space()='Add to Cart']"
     ).click()
+    page.locator("div[id='cart-summary']").wait_for(state='visible', timeout=5000)
 
 
 def handle_cookie_consent(page):
