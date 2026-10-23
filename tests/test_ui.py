@@ -5,7 +5,6 @@ import helpers.cart as cart
 import helpers.user as user
 
 
-@pytest.mark.semi_automated
 def test_add_product_to_cart(context, logged_in_user):
     """
     Test to verify that a product remains in the cart after re-authentication.
