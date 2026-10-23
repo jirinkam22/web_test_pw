@@ -1,4 +1,6 @@
 import os
+
+from helpers.auth import get_otp_code
 from tests.config import config
 from playwright.sync_api import TimeoutError
 
@@ -23,7 +25,10 @@ def login_to_user_account(page):
     page.fill("input[id='login-password']", os.getenv("APP_PASSWORD"))
     page.click("button[data-testid='login-button']")
 
-    input("Press Enter after approving the authentication request in the app...")
+    otp_code = get_otp_code()
+    input_fields = page.locator("//input[contains(@class, 'confirmationCodeItem_')]")
+    for i, char in enumerate(otp_code):
+        input_fields.nth(i).fill(char)
 
     try:
         trust_device_button = page.locator("button:has-text('Trust Device')")
