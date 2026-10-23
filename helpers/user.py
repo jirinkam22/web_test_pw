@@ -10,7 +10,7 @@ def login_to_user_account(page):
     Authenticate the user on the login page.
 
     This function fills the username and password from environment variables,
-    submits the login form, waits for user input for MFA approval in the app,
+    submits the login form, gets the OTP code for MFA authentication,
     and accepts the trust-device prompt if it appears.
 
     Args:
